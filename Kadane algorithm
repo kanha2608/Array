@@ -1,0 +1,7 @@
+int curr_max = arr[0] , maxi = arr[0];
+for(int i = 1; i < n ; i++){
+    curr_max = max(curr_max + arr[i] , arr[i]);
+    maxi = max(curr_max, maxi);
+}
+
+return maxi;
