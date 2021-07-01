@@ -1,0 +1,29 @@
+iven an array arr[] denoting heights of N towers and a positive integer K,
+you have to modify the height of each tower either by increasing or decreasing them by K only once.
+After modifying, height should be a non-negative integer. 
+
+Here, assume at some index i, if I decided to increase to increment then I can safely increment to all the position left of it.
+Hence maximum height will be achieved either at last or at curr.
+
+similarily, if I decided to decrement height of curr then i can decrement height of all right of it.
+
+
+So, we will find such index which is best suited for increment and from next of it we will decrement all of the sticks.
+
+sort(arr, arr + n);
+int ans = arr[n-1] - arr[0];
+// This is possible if we couldn't find such index.
+
+for(int i = 0 ; i< n -1; i++){
+
+// We are looking for such i where i can increment to all left of it, and decrement to all right of it. 
+    if(arr[i+1] < k){
+        continue;
+        // since height can't be negative so avoid.
+    }
+    int maxi = max(arr[n-1] - k , arr[i] + k);   // increment at curr and now it is candidate for maxi.
+    int mini = min(arr[0] + k , arr[i+1] - k);   // next element is decremented so it is candidate for mini. and all right of it will be decremented but larger than this.
+    
+    ans = min(ans, maxi - mini);   
+}
+return ans;
