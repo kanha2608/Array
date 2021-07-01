@@ -1,3 +1,13 @@
+Dynamic programming 
+
+dp(i) will be the largest sum of contagious subarray till index i .
+So recurrence.
+Either this will contribute to last result or it will create its own subarray.
+dp[i]  = max(dp[i-1] + arr[i], arr[i]);
+here if(dp[i-1] is smaller and negative then it is good to take arr[i] here since it will be maximum sum);
+
+and then dp(n) will be the answer.
+
 int curr_max = arr[0] , maxi = arr[0];
 for(int i = 1; i < n ; i++){
     curr_max = max(curr_max + arr[i] , arr[i]);
