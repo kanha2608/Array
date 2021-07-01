@@ -1,0 +1,48 @@
+The idea is simple as of merge sort. 
+first we divide the array in two half and calculate for both half and then merge answer.
+
+base condition: - 
+if(low == high){
+  min = max = arr[low];
+}
+
+Two element case :- 
+min = min(arr[low], arr[high]) 
+max = max(arr[low], arr[high]) 
+
+now recur for left and right half.
+
+This way number of comparision will reduced.
+
+comparision :- 3*n/2 - 2;
+\\\struct Pair{
+    int mn, mx;
+};
+Pair getminmax(int arr[] , int low, int high){
+    Pair minmax, mml , mmr;
+    // if(low > high) return minmax;
+    if(low == high){
+        minmax.mn = minmax.mx = arr[low];
+        return minmax;
+    }
+    if(low + 1 == high){
+        minmax.mn = min(arr[low] , arr[high]);
+        minmax.mx = max(arr[low] , arr[high]);
+        return minmax;
+    }
+    int mid= (low + high)/2;
+    mml = getminmax(arr, low, mid-1);
+    mmr = getminmax(arr, mid, high);
+    
+    minmax.mn = min(mml.mn , mmr.mn);
+    minmax.mx = max(mml.mx , mmr.mx);
+    return minmax;
+}
+
+void solve(){
+
+    int arr[5] = {1,5,3,4,2};
+    Pair minmax = getminmax(arr, 0  , 4);
+    cout<<minmax.mn<<" "<<minmax.mx<<nl;
+}
+
