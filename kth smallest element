@@ -3,10 +3,10 @@ Idea is to use maxheap and limit its size to k. since its size is k and top elem
 priority_queue<int> mheap;
 for(int i = 0; i < n ; i++){
 
-    mheap.push(arr[i]);
-    // As our size is increase now top element will be of no use. Simply pop that.
-    if(mheap.size() > k ){
+    if(mheap.size() < k) mheap.push(arr[i]);
+    else if(mheap.top() > arr[i]){
         mheap.pop();
+        mheap.push(arr[i]);
     }
 }
 mheap.top() is our answer. 
