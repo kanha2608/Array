@@ -1,0 +1,42 @@
+Here, all element is in range 1 to n.
+so, we can use array value as hash index.
+
+Now, We will add some dummy value to that index, so keep a log to detect whether this index was reachable.
+
+
+for(int i = 0 ; i < n; i++){
+    nums[(nums[i]-1)%n] += n;
+    // This will add some dummy value. 
+}
+for(int i = 0 ;i < n ; i++){
+    if(nums[i] > 2*n){
+    // when dummy is added more than twice to this index then this is for sure repititve.
+        return i+1;
+    }
+}
+
+
+floyd cycle :-
+// We use index mapping to move.
+
+For example, let's assume
+nums = [2,1,3,1], then the mapping function is 0->2, {1,3}->1, 2->3.
+Then the sequence we get definitely has a cycle. 0->2->3->1->1->1->1->1->........ 
+The starting point of this cycle is the duplicate number.
+
+int n = nums.size();
+if(n == 1)
+    return -1;
+int slow = nums[0];
+int fast = nums[nums[0]];
+while(slow != fast){
+    slow = nums[slow];
+    fast = nums[nums[fast]];
+}
+fast = 0;
+while(slow != fast){
+    slow = nums[slow];
+    fast = nums[fast];
+}
+return slow;
+
