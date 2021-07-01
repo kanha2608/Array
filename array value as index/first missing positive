@@ -1,0 +1,33 @@
+int n = nums.size();
+bool flag = false;
+
+// Our answer range is [1 to n+1] so if value is not found then we will return n+1;
+// And all the value less than 0 will not help in answer, and greater than n will also not contribute
+
+for(int i = 0 ; i< n; i++){
+    if(nums[i] == 1){
+        flag = true;
+    }
+    if(nums[i] <= 0 || nums[i] > n)  nums[i] = 1;
+    // We are declaring it to 1 because we know these will not contribute to answer.
+    // And they are creating difficulty for hashing.
+}
+
+// here we will be using array index as hashing.
+// Update value at that index. and if the value is not updated means that index is not present.
+
+if(!flag) return 1;
+
+for(int i = 0; i < n ; i++){
+    nums[(nums[i]-1)%n] += n;
+}
+// here we will update for index at their value - 1 position.
+
+for(int i = 0 ; i< n ; i++){
+    if(nums[i] <= n){
+        return i+1;
+        // Means this index  + 1 wasn't seen so this is our answer.
+    }
+}
+return n+1;
+        
