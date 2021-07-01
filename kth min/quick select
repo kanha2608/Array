@@ -1,0 +1,33 @@
+Idea is to use quick sort. but we are partially sorting that means we are recurring for k 
+if pivot is kth then we stop
+if pivot is less move right else move left;
+
+
+int partition(vector<int>& arr, int low, int high){
+    int pivot = arr[high];
+    int l = low -1;
+    for(int j = low ; j < high; j++){
+        if(arr[j] < pivot){
+            swap(arr[++l] , arr[j]);
+        }
+    }
+    swap(arr[++l], arr[high]);
+    return l;
+}
+
+
+int quickselect(vector<int>& arr, int k){
+    int ans ;
+    int low = 0 , high = arr.size()-1;
+    while(low <= high){
+        int pi = partition(arr, low ,high);
+        if(pi == k-1){
+            ans = arr[pi];
+            break;
+        }
+        else if(pi > k-1)    high = pi -1;
+
+        else    low = pi +1;
+    }
+    return ans;
+}
