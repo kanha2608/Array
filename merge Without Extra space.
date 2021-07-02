@@ -1,0 +1,29 @@
+Given two sorted arrays arr1[] of size N and arr2[] of size M.
+Each array is sorted in non-decreasing order.
+Merge the two arrays into one sorted array in non-decreasing order without using any extra space.
+
+
+Here, Suppose we are starting from i = 0 , j = 0 , and k will tell us the largest in arr1 which can be safely swap.
+
+suppose arr1[i] element is smaller than arr2[j] then, i++;
+
+if arr1[i] > arr2[j] then jth must be included in arr1 and to compensate that we have to return something to arr2 so best possible candidate is largest value in arr1
+to keep log of largest we are using kth index. so each time we can swap with arr1[k] and decrement k and increment j;
+
+Then, finally sort both the array.
+
+Here, after kth index values are not sorted means they are smaller value which arr2 gave us in return for greater value.
+so we can break at that point
+
+int i = 0 , j = 0 , k = n-1;
+while(i <= k && j < m){
+    if(arr1[i] <= arr2[j]){
+        i++;
+    }
+    else{
+        swap(arr2[j++], arr1[k--]);
+        // No increment in i. because might be possible j+1 element is also smaller then that too must be exchanged.
+    }
+}
+sort(arr1, arr1+n);
+sort(arr2, arr2+m);
