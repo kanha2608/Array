@@ -5,6 +5,11 @@
  * 4 5 6  => 4 5 6  => 8 5 2
  * 7 8 9     1 2 3     9 6 3
 */
+
+clockwise  = Reverse + transpose. // Transpose + left to right rotate.
+Anti Clockwise = reverse left to right and transpose. // Transpose + Reverse whole array.
+
+
 void rotate(vector<vector<int> > &matrix) {
     reverse(matrix.begin(), matrix.end());
     for (int i = 0; i < matrix.size(); ++i) {
