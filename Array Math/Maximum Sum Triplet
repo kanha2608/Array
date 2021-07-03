@@ -1,0 +1,37 @@
+Given an array A containing N integers.
+You need to find the maximum sum of triplet ( Ai + Aj + Ak ) such that 0 <= i < j < k < N and Ai < Aj < Ak.
+If no such triplet exist return 0.
+
+here, we will have first n3 approach which will run three nested loops.
+Here, basically focussing on a[i] we focus on Aj 
+and search for maximum greatest value less than Aj on its left side. and Maximum gretest value on right hand side.
+and Maximize our answer.
+
+for getting maximum value on left hand side. We keep insert them on set. and find lower_bound of Aj decrement pointer once.
+For getting maximum value on right hand side of j we will have a log of suffix array. Which will tell us maximum value from index i to n;
+
+
+Suffix Array concept is really useful in finding maximum for current index, We start loop from right and update maximum at every position.
+And We are putting INT_MIN in set to handle case when No minimum is found in that case lower_bound will point to begin and we can avoid that
+
+int n = A.size();
+vector<int> suff(n+1);
+suff[n] = 0;
+for(int i = n-1; i >= 0 ; i--){
+    suff[i] = max(suff[i+1] , A[i]);
+}
+set<int> s;
+s.insert(INT_MIN);
+int ans = 0;
+for(int i = 0 ; i < n -1; i++){
+    if(suff[i+1] > A[i]){
+        auto it = s.lower_bound(A[i]);
+        if(it != s.begin()){
+            --it;
+            ans = max(ans, *it + suff[i+1] + A[i]);
+            s.insert(A[i]);
+        }
+    }
+}
+
+return ans;
