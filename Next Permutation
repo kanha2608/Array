@@ -1,0 +1,23 @@
+Go on finding first decresing from right to left. Means that point will be need to swapped with just greater value from its right.
+Again start loop from that index find that greater value and swap them , and at last sort index from array i.
+
+vector<int> Solution::nextPermutation(vector<int> &A) {
+    int n = A.size() ;
+    int i = n-1;
+    while(i >= 1 && A[i-1] >= A[i]){
+        i--;
+    }
+    if(i == 0){
+        sort(A.begin() , A.end());
+        return A;
+    }
+    int j = i;
+    while(j < n && A[j] > A[i-1]){
+        j++;
+    }
+    swap(A[i-1] , A[j-1]);
+    sort(A.begin() + i , A.end());
+    return A;
+
+
+}
