@@ -1,0 +1,27 @@
+eg. 
+0, 3   
+1 ,4
+2, 5
+
+We will choose the video which is suitable to shoot at current place and also able to maxdrift.
+
+initial curr val = 0 , and maxreached = 0;
+We select from all available videos which is lesser than our curr_val and whose end point is as far as possible now we will replace our curr to that position.
+
+int mn = 0 , mx = 0, tot = 0;
+while(mx < time){
+    for(int i = 0 ; i < clips.size(); i++){
+        int l = clips[i][0];
+        int r = clips[i][1];
+        
+        // We will select the one who cover our mn value and whose right most is maximum and update that. 
+        if(l <= mn && r > mx){
+            mx = r;
+        }
+
+    }
+    if(mn == mx) return -1;
+    tot++;
+    mn = mx;
+}
+return tot;
