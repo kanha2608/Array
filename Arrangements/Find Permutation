@@ -1,0 +1,20 @@
+Here, first count balance that is Number of i on right hand side. Means this much time we have to increase our value.
+When I is seen increment that curr with this number i.e. position of this I. 
+
+int d = 0, i =0 ;
+for(char x: A){
+    d += (x == 'D');
+    i += (x == 'I');
+}
+int curr = B-i;
+d = 0, i = 0;
+vector<int> ans = {curr};
+for(char x: A){
+    if(x == 'D'){
+        ans.push_back(curr + (--d));
+    }
+    else{
+        ans.push_back(curr + (++i));
+    }
+}
+return ans;
