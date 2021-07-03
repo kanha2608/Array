@@ -1,0 +1,29 @@
+Given [3, 30, 34, 5, 9], the largest formed number is 9534330.
+
+Suppose, You have two Number 30 and  3 then 330 > 303 
+so in sort comparator we simply check if A+B > B+A; where A and B are string means we are comparing string concatination.
+
+If too many leading zero return 0 only.
+
+
+bool comp(int a, int b){
+    string  u= to_string(a) , v = to_string(b);
+    return (u + v) > (v + u);
+}
+
+
+string Solution::largestNumber(const vector<int> &A) {
+    vector<int> arr;
+    for(int x: A){
+        arr.push_back(x);
+    }
+    sort(arr.begin() , arr.end() , comp);
+    if(arr[0] == 0){
+        return "0";
+    }
+    string ans = "";
+    for(int x: arr){
+        ans += to_string(x);
+    }
+    return ans;
+}
