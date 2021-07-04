@@ -1,0 +1,16 @@
+Elegant way to check whether two opposite are equal or not.
+
+int Solution::solve(int A, int B, int C, int D) {
+    /* A rectangle has 4 sides and if any 2 are equal,
+    *  then other 2 must be equal as well.
+    *  So pick any 2 among 4 is 4C2 = 6.
+    *  Check 6 conditions and you done.
+    Simple solution.
+    */
+    
+    if(A == B) return C == D;
+    else if(A == C) return B == D;
+    else if(A == D) return B == C;
+    else return false;
+    
+}
