@@ -1,0 +1,16 @@
+Make arr[i] = arr[arr[i]] in o(1) space.
+
+We will use forge value that is (sizeof(arr)*new value ) and add to current, and while accessing to that value we simply divide by size .
+
+Suppose arr[i] = a, arr[arr[i]] = b;
+so we replace our arr[i] = a + b*n;
+
+int n = A.size();
+for(int i = 0 ; i < n; i++){
+    A[i] += n*(A[A[i]]%n);
+}
+
+for(int i = 0 ; i < n ; i++){
+    A[i] = A[i]/n;
+}
+
