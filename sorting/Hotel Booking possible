@@ -1,0 +1,23 @@
+1. Sort both the arr and dep individually. 
+2. Start loop check if we need extra room or not, means previous was vaccent or not, and we store overall max result.
+
+
+Here, if departure of 1 and arrival of 2nd is same they don't require extra room.
+
+sort(arrive.begin() , arrive.end());
+sort(depart.begin() , depart.end());
+int n = arrive.size();
+int cnt = 0 , maxi = 0 , i = 0 , j = 0;
+while(i < n && j < n){
+    if(arrive[i] < depart[j]){
+        cnt++;
+        i++;
+    }
+    else{
+        cnt--;
+        j++;
+    }
+    maxi = max(maxi, cnt);
+}
+// cout<<maxi<<" ";
+return maxi <= K;
