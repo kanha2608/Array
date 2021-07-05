@@ -9,35 +9,29 @@ If curr_max to accumulate the longest sum.
 
 If at any instance sum is less than zero then no need to carryon with that substring.
 So ltemp will update.
+
+
 int n = A.size();
 vector<int> arr(n);
 for(int i = 0 ; i < n ; i++){
-    if(A[i] =='0'){
-        arr[i] = 1;
-        cz++;
-    }
-    else{
-        arr[i] = -1;
-    }
+    if(A[i] == '0') arr[i] = 1;
+    else arr[i] = -1;
 }
-
-int l, r, ltemp = 0 , curr_max = 0 , tot_max = INT_MIN ;
+int l = -1, r = -1, ltemp = 0 , curr_max = 0 , tot_max = 0 ;
 for(int i = 0 ; i < n ; i++){
-    int val = arr[i];
-    curr_max += val;
+    curr_max += arr[i];
 
-    if(curr_max > tot_max){
+    if(curr_max > tot_max){       // This will be good subarray to update.
         l = ltemp;
         r = i;
         tot_max = curr_max;
     }
-    if(curr_max < 0){
+    if(curr_max < 0){               // There is no point in taking this subarray anymore.
         ltemp = i+1;
         curr_max = 0;
-        
     }
 }
-if(cz == 0){
+if(l == -1){
     return {};
 }
 return {l+1, r+1};
