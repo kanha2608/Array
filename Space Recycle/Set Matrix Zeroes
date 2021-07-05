@@ -1,0 +1,33 @@
+Here, We will use first index of that row and first index of that col to indicate whether this row or coloum contains the 0;
+When we encounter any zero then mark its starting of row and col as zero.
+Now again start loop from i = 1 and j = 1; Have to explicitly deal with first row and col.
+Check for current element if first index col or row is zero then mark it zero.
+
+We require these two variable because how we would know whether to mark for first or not.
+If first coloumn have any zero then mark col = true and if first row have any zero then mark row =  true.
+
+
+int n = matrix.size() , m = matrix[0].size();
+bool row = false, col = false;
+for(int i = 0 ; i < n; i++){
+    for(int j = 0; j < m ; j++){
+        if(matrix[i][j] == 0){
+            if(i == 0) row = true;
+            if(j == 0) col = true;
+            matrix[i][0] = matrix[0][j] = 0;
+        }
+    }
+}
+for(int i = 1 ;i < n ; i++){
+    for(int j = 1 ; j < m ; j++){
+        if(matrix[i][0] == 0 || matrix[0][j] == 0){
+            matrix[i][j] = 0;
+        }
+    }
+}
+if(col){
+    for(int i = 0 ; i < n ; i++ )    matrix[i][0] = 0;
+}
+if(row){
+    for(int j = 0 ; j< m ; j++ )    matrix[0][j] = 0;
+}
