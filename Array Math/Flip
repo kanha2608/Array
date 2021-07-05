@@ -1,0 +1,43 @@
+Your aim is to perform ATMOST one operation such that in final string number of 1s is maximised.
+If you don’t want to perform the operation, return an empty array.
+Else, return an array consisting of two elements denoting L and R. 
+
+Here, We will use kadane to get the maximum difference subarray. and use ltemp to denote the start of index.vector<int> Solution::flip(string A) {
+    
+count(0) - count(1), so replace char '0' with +1 , and '1' with -1
+If curr_max to accumulate the longest sum.
+
+If at any instance sum is less than zero then no need to carryon with that substring.
+So ltemp will update.
+int n = A.size();
+vector<int> arr(n);
+for(int i = 0 ; i < n ; i++){
+    if(A[i] =='0'){
+        arr[i] = 1;
+        cz++;
+    }
+    else{
+        arr[i] = -1;
+    }
+}
+
+int l, r, ltemp = 0 , curr_max = 0 , tot_max = INT_MIN ;
+for(int i = 0 ; i < n ; i++){
+    int val = arr[i];
+    curr_max += val;
+
+    if(curr_max > tot_max){
+        l = ltemp;
+        r = i;
+        tot_max = curr_max;
+    }
+    if(curr_max < 0){
+        ltemp = i+1;
+        curr_max = 0;
+        
+    }
+}
+if(cz == 0){
+    return {};
+}
+return {l+1, r+1};
