@@ -1,2 +1,24 @@
 Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
 
+link :- https://leetcode.com/problems/majority-element-ii/discuss/63520/boyer-moore-majority-vote-algorithm-and-my-elaboration
+
+vector<int> majorityElement(vector<int>& nums) {
+    int cd1 = 0, cd2  = 1, cnt1 = 0 , cnt2 = 0;
+    for(auto n : nums){
+        if(n == cd1) cnt1++;
+        else if(n == cd2) cnt2++;
+        else if(cnt1 == 0) cd1 = n , cnt1++;
+        else if(cnt2 == 0) cd2 = n, cnt2++;
+        else cnt1--, cnt2--;
+    }
+    int n1 =0 , n2 =0;
+    for(int n : nums){
+        n1 += (n == cd1);
+        n2 += (n == cd2);
+    }
+    vector<int> ans;
+    if(n1 > (nums.size()/3)) ans.push_back(cd1);
+    if(n2 > nums.size()/3) ans.push_back(cd2);
+    return ans;
+}
+
