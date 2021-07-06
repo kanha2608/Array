@@ -1,0 +1,15 @@
+Here, find number whose occurance is more than floor(n/2).
+Here, idea is we assume every candidate as majority and keep and count 
+if curr is not same as majority decrease the count and if same then increase.
+if count = 0 make current as majority.
+
+int majorityElement(vector<int>& nums) {
+    int n = nums.size();
+    int cnt = 0 , maj;
+    for(int i = 0 ; i < n; i++){
+        if(cnt == 0)
+            maj = nums[i];
+        cnt += (maj == nums[i])?1:-1;
+    }
+    return maj;
+}
