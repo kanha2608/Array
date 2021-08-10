@@ -1,0 +1,9 @@
+
+
+int mx1 , mx2, mx3;
+
+if( n > mx1) mx3 = mx2 , mx2 = mx1 , mx1 = n;
+else if(n > mx2)  mx3 = mx2, mx2 = n;
+else mx3 = n;
+
+
