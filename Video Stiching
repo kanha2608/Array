@@ -25,3 +25,47 @@ while(mx < time){
     mn = mx;
 }
 return tot;
+
+
+Merge Intervals.
+
+
+insert a new interval and merge it.
+
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+vector<Interval> Solution::insert(vector<Interval> &intervals, Interval newInterval) {
+    vector<Interval> ans;
+    int n = intervals.size();
+    int i= 0;
+    while(i < n && intervals[i].end < newInterval.start){
+        ans.push_back(intervals[i]);
+        i++;
+        
+    }
+    if(i == n){
+        ans.push_back(newInterval);
+        return ans;
+    }
+    int st = min(intervals[i].start, newInterval.start);
+    while(i < n && intervals[i].start < newInterval.end){
+        i++;
+    }
+    int end = max(intervals[i-1].end , newInterval.end);
+    ans.push_back(Interval(st, end));
+    while(i < n){
+        ans.push_back(intervals[i]);
+        i++;
+    }
+    return ans;
+}
+
+
+
