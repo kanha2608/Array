@@ -1,0 +1,66 @@
+Using policy based data structure
+
+less_equal for handling duplicate.
+
+Inserting negative elements and now order of will tell us the number of elements which are greater than my current.
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+  
+#define ordered_set tree<long long, null_type,less_equal<long long>, rb_tree_tag,tree_order_statistics_node_update>
+class Solution{
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array.
+    long long int inversionCount(long long arr[], long long N)
+    {
+        // Your Code Here
+        ordered_set s;
+        s.insert(-arr[0]);
+        long long ans = 0;
+        for(int i = 1 ; i < N; i++){
+            ans += s.order_of_key(-arr[i]);
+            s.insert(-arr[i]);
+        }
+        return ans;
+    }
+
+
+using enhanced merge_sort.
+
+long long int inversionCount(long long arr[], long long N)
+{
+    long long temp[N];
+    return mergesort(arr, temp, 0 , N-1);
+}
+long long mergesort(long long arr[], long long temp[], int l ,int h){
+    long long inv = 0;
+    if(l < h){
+        int mid = l + (h-l)/2;
+
+        inv += mergesort(arr, temp , l , mid);
+        inv += mergesort(arr, temp, mid + 1, h);
+        inv += merge(arr,temp, l , mid , h);
+    }
+    return inv;
+}
+long long merge(long long arr[], long long temp[], int l ,int mid, int h){
+    int i = l , j = mid + 1 , k = l;
+    long long inv = 0;
+    while(i <= mid && j <= h){
+        if(arr[i] <= arr[j]){
+            temp[k++] = arr[i++];
+        }
+        else{
+            temp[k++] = arr[j++];
+            inv += (mid - i +1); 
+        }
+    }
+    while(i <= mid) temp[k++] = arr[i++];
+    while(j <= h)   temp[k++] = arr[j++];
+    for(int i = l; i <= h; i++){
+        arr[i] = temp[i];
+    }
+    return inv;
+}
