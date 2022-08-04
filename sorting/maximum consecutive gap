@@ -1,0 +1,49 @@
+Here, we know if all elements are equi placed then maximam gap would be 
+(u - l)/(n-1) ceil.
+
+Make buckets of this size and now get the index of current element.
+Now if current is lesser than min element then update min element
+if current is greater than then update max element of this bucket. 
+
+Answer is current bucket min - previous bucket max.
+
+
+
+int Solution::maximumGap(const vector<int> &A) {
+    int n = A.size(), mn = INT_MAX, mx = INT_MIN;
+    
+    if(n < 2) return 0;
+
+    for(auto &x: A){
+        mn = min(mn, x);
+        mx = max(mx, x);
+    }
+
+    int maxGap = (mx - mn + n - 2)/(n - 1);
+    if(maxGap == 0) return 0;
+
+    vector<pair<int,int>> arr(n + 1, {INT_MAX, INT_MIN});
+
+    for(auto &x: A){
+        int ind = (x - mn)/maxGap;
+        if(x < arr[ind].first){
+            arr[ind].first = x;
+        }
+        if(x > arr[ind].second){
+            arr[ind].second = x;
+        }
+    }
+    int ans = arr[0].second - arr[0].first, prev = arr[0].second;
+    for(int i = 1; i < arr.size(); i++){
+        if(arr[i].first != INT_MAX){
+            ans = max(ans, arr[i].first - prev);
+            prev = arr[i].first;
+        }
+        if(arr[i].second != INT_MIN){
+            ans = max(ans, arr[i].second - prev);
+            prev = arr[i].second;
+        }
+
+    }
+    return ans;
+}
