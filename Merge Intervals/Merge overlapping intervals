@@ -1,0 +1,28 @@
+1. sort according to start time.
+2. out temp will store previous interval if current interval start > temp.end means you can free up temp and make current as temp.
+3. Else you have to change boundry to temp.
+
+and at last push temp.
+
+vector<Interval> Solution::merge(vector<Interval> &A) {
+    int n = A.size();
+    auto cmp = [&](Interval& a, Interval& b){
+        return a.start < b.start;  
+    };
+    sort(A.begin(), A.end(), cmp);
+    
+    vector<Interval> ans;
+    Interval temp = A[0];
+    
+    for(int i= 1; i < n; i++){
+        if(A[i].start > temp.end){
+            ans.push_back(temp);
+            temp = A[i];
+        }
+        else{
+            temp.end = max(temp.end, A[i].end);
+        }
+    }
+    ans.push_back(temp);
+    return ans;
+}
