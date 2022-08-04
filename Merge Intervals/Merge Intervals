@@ -1,0 +1,38 @@
+----    -----   -----   -----   ------
+      ------------
+      
+Here b is our new interval. if our current element.end < b.first then we can safely push back our current element.
+
+if(current element > b) then we can safely push b and make current as b.
+else change endings of b.
+
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+vector<Interval> Solution::insert(vector<Interval> &a, Interval b) {
+    vector<Interval> ans;
+    
+    for(auto &x: a){
+        if(x.end < b.start){
+            ans.push_back(x);
+        }
+        else if(b.end < x.start){
+            ans.push_back(b);
+            b = x;
+        }
+        else{
+            b.start = min(b.start, x.start);
+            b.end = max(b.end, x.end);
+        }
+    }
+    ans.push_back(b);
+    
+    return ans;
+    
+}
